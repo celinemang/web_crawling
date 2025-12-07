@@ -3,7 +3,13 @@ This project to reliably scrape investor documents from the Meiji website using 
 # OVERVIEW
 This project has two main parts:
 
-crawler.py: A Python script that scrapes dynamically loaded PDF links and metadata (Title, Year, Quarter) using Selenium's scrolling capability. It includes a URL fallback logic to ensure documents without a year in the title (like "Q&A") are correctly stamped with the year from the URL.
+crawler.py: A Python script that scrapes dynamically loaded PDF links and metadata (Title, Year, Quarter).
+	- Extract and store the following information for each PDF:
+	    - `document_title`
+	    - `document_type` (One of: `earnings_release`, `financial_statement`, `qna`, `others`)
+	    - `year` (if identifiable, otherwise leave null)
+	    - `quarter` (if identifiable, otherwise leave null)
+	    - `pdf_url`
 
 FastAPI Server: Handles database setup (Alembic) and provides endpoints to store and retrieve the scraped data.
 
