@@ -3,18 +3,17 @@ import requests
 import json
 from bs4 import BeautifulSoup
 from typing import Dict, Optional, Any, List
-
-# --- Selenium Imports ---
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import time 
 
-# Configuration
+
 TARGET_URL = "https://www.meiji.com/global/investors/results-presentations/"
 BASE_DOMAIN = "https://www.meiji.com"
 API_CREATE_URL = "http://127.0.0.1:8000/create" 
+MIN_YEAR = 2022
 
-# --- Helper Functions for Data Extraction ---
+# --- Helper Functions ---
 
 def determine_document_type(title: str) -> str:
     """
@@ -138,6 +137,11 @@ def scrape_documents() -> List[Dict[str, Any]]:
         # print(f"DEBUG Title: {document_title}")
         # print(f"DEBUG year: {year}")
         # print("-" * 30)
+        
+        # --- MIN_YEAR FILTER (Now Active) ---
+        if year is None or year < MIN_YEAR:
+            print(f"--- SKIPPED: Year {year} is below MIN_YEAR ({MIN_YEAR}) or None ---")
+            continue
 
         document_type = determine_document_type(document_title)
         
