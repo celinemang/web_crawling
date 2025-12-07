@@ -1,0 +1,9 @@
+fastapi[all]
+uvicorn
+sqlalchemy
+alembic
+pydantic
+requests
+selenium
+beautifulsoup4
+html5lib
